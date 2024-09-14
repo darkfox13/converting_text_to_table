@@ -1,0 +1,163 @@
+<html>
+<head>
+<title>spell cards.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #7a7e85;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+spell cards.py</font>
+</center></td></tr></table>
+<pre><span class="s0">from </span><span class="s1">odf </span><span class="s0">import </span><span class="s1">draw</span><span class="s2">, </span><span class="s1">text</span><span class="s2">, </span><span class="s1">table</span>
+<span class="s0">from </span><span class="s1">odf</span><span class="s2">.</span><span class="s1">draw </span><span class="s0">import </span><span class="s1">Page</span>
+<span class="s0">from </span><span class="s1">odf</span><span class="s2">.</span><span class="s1">opendocument </span><span class="s0">import </span><span class="s1">OpenDocumentText</span><span class="s2">, </span><span class="s1">OpenDocumentPresentation</span>
+<span class="s0">from </span><span class="s1">odf</span><span class="s2">.</span><span class="s1">style </span><span class="s0">import </span><span class="s1">Style</span><span class="s2">, </span><span class="s1">TextProperties</span>
+<span class="s0">from </span><span class="s1">odf</span><span class="s2">.</span><span class="s1">text </span><span class="s0">import </span><span class="s1">P</span>
+<span class="s0">from </span><span class="s1">odf</span><span class="s2">.</span><span class="s1">opendocument </span><span class="s0">import </span><span class="s1">load</span>
+<span class="s0">from </span><span class="s1">odf</span><span class="s2">.</span><span class="s1">table </span><span class="s0">import </span><span class="s1">Table</span><span class="s2">, </span><span class="s1">TableRow</span><span class="s2">, </span><span class="s1">TableCell</span><span class="s2">, </span><span class="s1">TableColumn</span>
+
+<span class="s1">doc </span><span class="s2">= </span><span class="s1">load</span><span class="s2">(</span><span class="s3">&quot;spells test.odt&quot;</span><span class="s2">)</span>
+
+<span class="s4"># Extract paragraphs from the document</span>
+<span class="s1">all_text </span><span class="s2">= []</span>
+<span class="s0">for </span><span class="s1">element </span><span class="s0">in </span><span class="s1">doc</span><span class="s2">.</span><span class="s1">getElementsByType</span><span class="s2">(</span><span class="s1">P</span><span class="s2">):</span>
+    <span class="s1">all_text</span><span class="s2">.</span><span class="s1">append</span><span class="s2">(</span><span class="s1">str</span><span class="s2">(</span><span class="s1">element</span><span class="s2">))</span>
+
+<span class="s4"># Join all paragraphs into one string</span>
+<span class="s1">joined_text </span><span class="s2">= </span><span class="s3">'</span><span class="s0">\n</span><span class="s3">'</span><span class="s2">.</span><span class="s1">join</span><span class="s2">(</span><span class="s1">all_text</span><span class="s2">)</span>
+<span class="s4">#sperating all the spells</span>
+<span class="s1">list_of_spell </span><span class="s2">= </span><span class="s1">joined_text</span><span class="s2">.</span><span class="s1">split</span><span class="s2">(</span><span class="s3">&quot;##&quot;</span><span class="s2">)</span>
+<span class="s4">#creating a dict with number for keys</span>
+<span class="s1">spell_dict </span><span class="s2">= {</span><span class="s1">i</span><span class="s2">: </span><span class="s1">item </span><span class="s0">for </span><span class="s1">i</span><span class="s2">, </span><span class="s1">item </span><span class="s0">in </span><span class="s1">enumerate</span><span class="s2">(</span><span class="s1">list_of_spell</span><span class="s2">)}</span>
+<span class="s4">#spliting the spells into their sperate parts in the dict</span>
+<span class="s0">for </span><span class="s1">key </span><span class="s0">in </span><span class="s1">spell_dict</span><span class="s2">:</span>
+    <span class="s1">spell_dict</span><span class="s2">[</span><span class="s1">key</span><span class="s2">] = (</span><span class="s1">spell_dict</span><span class="s2">[</span><span class="s1">key</span><span class="s2">]).</span><span class="s1">rsplit</span><span class="s2">(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s2">)</span>
+
+<span class="s4">#print(spell_dict)</span>
+<span class="s1">print</span><span class="s2">(</span><span class="s1">spell_dict</span><span class="s2">[</span><span class="s5">0</span><span class="s2">])</span>
+<span class="s1">print</span><span class="s2">(</span><span class="s1">spell_dict</span><span class="s2">[</span><span class="s5">1</span><span class="s2">])</span>
+<span class="s1">print</span><span class="s2">(</span><span class="s1">spell_dict</span><span class="s2">[</span><span class="s5">2</span><span class="s2">])</span>
+<span class="s1">print</span><span class="s2">(</span><span class="s1">len</span><span class="s2">(</span><span class="s1">spell_dict</span><span class="s2">))</span>
+
+<span class="s4">###############################</span>
+
+<span class="s1">doc </span><span class="s2">= </span><span class="s1">OpenDocumentText</span><span class="s2">()</span>
+
+<span class="s1">table_style </span><span class="s2">= </span><span class="s1">Style</span><span class="s2">(</span><span class="s1">name</span><span class="s2">=</span><span class="s3">&quot;TableStyle&quot;</span><span class="s2">, </span><span class="s1">family</span><span class="s2">=</span><span class="s3">&quot;table&quot;</span><span class="s2">)</span>
+<span class="s1">doc</span><span class="s2">.</span><span class="s1">styles</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">table_style</span><span class="s2">)</span>
+
+
+<span class="s0">def </span><span class="s1">build_table</span><span class="s2">(</span><span class="s1">i</span><span class="s2">):</span>
+    <span class="s4"># Create a page break style with the correct fo:break-before property</span>
+    <span class="s1">page_break_style </span><span class="s2">= </span><span class="s1">Style</span><span class="s2">(</span><span class="s1">name</span><span class="s2">=</span><span class="s3">&quot;PageBreak&quot;</span><span class="s2">, </span><span class="s1">family</span><span class="s2">=</span><span class="s3">&quot;paragraph&quot;</span><span class="s2">)</span>
+    <span class="s1">doc</span><span class="s2">.</span><span class="s1">styles</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">page_break_style</span><span class="s2">)</span>
+
+    <span class="s4"># Add some content before the page break</span>
+    <span class="s1">paragraph1 </span><span class="s2">= </span><span class="s1">P</span><span class="s2">(</span><span class="s1">text</span><span class="s2">=</span><span class="s3">&quot;&quot;</span><span class="s2">)</span>
+    <span class="s1">doc</span><span class="s2">.</span><span class="s1">text</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">paragraph1</span><span class="s2">)</span>
+
+    <span class="s4"># Create a table and apply the style</span>
+    <span class="s1">table </span><span class="s2">= </span><span class="s1">Table</span><span class="s2">(</span><span class="s1">name</span><span class="s2">=</span><span class="s3">&quot;ExampleTable&quot;</span><span class="s2">, </span><span class="s1">stylename</span><span class="s2">=</span><span class="s1">table_style</span><span class="s2">)</span>
+
+    <span class="s4"># Define the number of columns</span>
+    <span class="s0">for </span><span class="s1">_ </span><span class="s0">in </span><span class="s1">range</span><span class="s2">(</span><span class="s5">3</span><span class="s2">):</span>
+        <span class="s1">table</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">TableColumn</span><span class="s2">())</span>
+
+    <span class="s4">#  first row of the table</span>
+    <span class="s1">row1 </span><span class="s2">= </span><span class="s1">TableRow</span><span class="s2">()</span>
+    <span class="s1">row1_data </span><span class="s2">= [</span><span class="s1">spell_dict</span><span class="s2">[</span><span class="s1">i</span><span class="s2">][</span><span class="s5">3</span><span class="s2">]]</span>
+    <span class="s0">for </span><span class="s1">cell_data </span><span class="s0">in </span><span class="s1">row1_data</span><span class="s2">:</span>
+        <span class="s1">cell </span><span class="s2">= </span><span class="s1">TableCell</span><span class="s2">()</span>
+        <span class="s1">cell</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">P</span><span class="s2">(</span><span class="s1">text</span><span class="s2">=</span><span class="s1">cell_data</span><span class="s2">))</span>
+        <span class="s1">row1</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">cell</span><span class="s2">)</span>
+    <span class="s1">table</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">row1</span><span class="s2">)</span>
+
+    <span class="s1">merged_cell </span><span class="s2">= </span><span class="s1">TableCell</span><span class="s2">(</span><span class="s1">numbercolumnsspanned</span><span class="s2">=</span><span class="s5">3</span><span class="s2">)  </span><span class="s4"># Merge 3 columns</span>
+    <span class="s1">merged_cell</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">P</span><span class="s2">(</span><span class="s1">text</span><span class="s2">=</span><span class="s1">spell_dict</span><span class="s2">[</span><span class="s1">i</span><span class="s2">][</span><span class="s5">1</span><span class="s2">]))</span>
+    <span class="s1">row1</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">merged_cell</span><span class="s2">)</span>
+    <span class="s1">table</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">row1</span><span class="s2">)</span>
+
+    <span class="s4"># second row of the table</span>
+
+    <span class="s1">row2 </span><span class="s2">= </span><span class="s1">TableRow</span><span class="s2">()</span>
+    <span class="s1">row2_data </span><span class="s2">= [</span><span class="s3">&quot;&quot;</span><span class="s2">]</span>
+    <span class="s0">for </span><span class="s1">cell_data </span><span class="s0">in </span><span class="s1">row2_data</span><span class="s2">:</span>
+        <span class="s1">cell </span><span class="s2">= </span><span class="s1">TableCell</span><span class="s2">()</span>
+        <span class="s1">cell</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">P</span><span class="s2">(</span><span class="s1">text</span><span class="s2">=</span><span class="s1">spell_dict</span><span class="s2">[</span><span class="s1">i</span><span class="s2">][</span><span class="s5">2</span><span class="s2">]))</span>
+        <span class="s1">row2</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">cell</span><span class="s2">)</span>
+    <span class="s1">table</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">row2</span><span class="s2">)</span>
+
+    <span class="s1">merged_cell </span><span class="s2">= </span><span class="s1">TableCell</span><span class="s2">(</span><span class="s1">numbercolumnsspanned</span><span class="s2">=</span><span class="s5">3</span><span class="s2">)  </span><span class="s4"># Merge 3 columns</span>
+    <span class="s1">merged_cell</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">P</span><span class="s2">(</span><span class="s1">text</span><span class="s2">=</span><span class="s1">spell_dict</span><span class="s2">[</span><span class="s1">i</span><span class="s2">][</span><span class="s5">6</span><span class="s2">]))</span>
+    <span class="s1">row2</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">merged_cell</span><span class="s2">)</span>
+    <span class="s1">table</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">row2</span><span class="s2">)</span>
+
+    <span class="s4"># third row of the table</span>
+
+    <span class="s1">row3 </span><span class="s2">= </span><span class="s1">TableRow</span><span class="s2">()</span>
+    <span class="s1">row3_data </span><span class="s2">= [</span><span class="s1">spell_dict</span><span class="s2">[</span><span class="s1">i</span><span class="s2">][</span><span class="s5">4</span><span class="s2">], </span><span class="s1">spell_dict</span><span class="s2">[</span><span class="s1">i</span><span class="s2">][</span><span class="s5">7</span><span class="s2">], </span><span class="s1">spell_dict</span><span class="s2">[</span><span class="s1">i</span><span class="s2">][</span><span class="s5">5</span><span class="s2">]]</span>
+    <span class="s0">for </span><span class="s1">cell_data </span><span class="s0">in </span><span class="s1">row3_data</span><span class="s2">:</span>
+        <span class="s1">cell </span><span class="s2">= </span><span class="s1">TableCell</span><span class="s2">()</span>
+        <span class="s1">cell</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">P</span><span class="s2">(</span><span class="s1">text</span><span class="s2">=</span><span class="s1">cell_data</span><span class="s2">))</span>
+        <span class="s1">row3</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">cell</span><span class="s2">)</span>
+    <span class="s1">table</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">row3</span><span class="s2">)</span>
+
+    <span class="s4"># fourth row of the table</span>
+    <span class="s1">row4 </span><span class="s2">= </span><span class="s1">TableRow</span><span class="s2">()</span>
+    <span class="s1">row4_data </span><span class="s2">= []</span>
+    <span class="s0">for </span><span class="s1">cell_data </span><span class="s0">in </span><span class="s1">row4_data</span><span class="s2">:</span>
+        <span class="s1">cell </span><span class="s2">= </span><span class="s1">TableCell</span><span class="s2">()</span>
+        <span class="s1">cell</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">P</span><span class="s2">(</span><span class="s1">text</span><span class="s2">=</span><span class="s1">cell_data</span><span class="s2">))</span>
+        <span class="s1">row4</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">cell</span><span class="s2">)</span>
+    <span class="s1">table</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">row4</span><span class="s2">)</span>
+
+    <span class="s1">merged_cell </span><span class="s2">= </span><span class="s1">TableCell</span><span class="s2">(</span><span class="s1">numbercolumnsspanned</span><span class="s2">=</span><span class="s5">4</span><span class="s2">)  </span><span class="s4"># Merge 4 columns</span>
+    <span class="s1">merged_cell</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">P</span><span class="s2">(</span><span class="s1">text</span><span class="s2">=</span><span class="s1">spell_dict</span><span class="s2">[</span><span class="s1">i</span><span class="s2">][</span><span class="s5">8</span><span class="s2">]))</span>
+    <span class="s1">row4</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">merged_cell</span><span class="s2">)</span>
+    <span class="s1">table</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">row4</span><span class="s2">)</span>
+
+    <span class="s4"># fifth row</span>
+
+    <span class="s1">row5 </span><span class="s2">= </span><span class="s1">TableRow</span><span class="s2">()</span>
+    <span class="s1">row5_data </span><span class="s2">= []</span>
+    <span class="s0">for </span><span class="s1">cell_data </span><span class="s0">in </span><span class="s1">row5_data</span><span class="s2">:</span>
+        <span class="s1">cell </span><span class="s2">= </span><span class="s1">TableCell</span><span class="s2">()</span>
+        <span class="s1">cell</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">P</span><span class="s2">(</span><span class="s1">text</span><span class="s2">=</span><span class="s1">cell_data</span><span class="s2">))</span>
+        <span class="s1">row4</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">cell</span><span class="s2">)</span>
+    <span class="s1">table</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">row5</span><span class="s2">)</span>
+
+    <span class="s1">merged_cell </span><span class="s2">= </span><span class="s1">TableCell</span><span class="s2">(</span><span class="s1">numbercolumnsspanned</span><span class="s2">=</span><span class="s5">4</span><span class="s2">)  </span><span class="s4"># Merge 4 columns</span>
+    <span class="s1">merged_cell</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">P</span><span class="s2">(</span><span class="s1">text</span><span class="s2">=</span><span class="s1">spell_dict</span><span class="s2">[</span><span class="s1">i</span><span class="s2">][</span><span class="s5">9</span><span class="s2">]))</span>
+    <span class="s1">row5</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">merged_cell</span><span class="s2">)</span>
+    <span class="s1">table</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">row5</span><span class="s2">)</span>
+
+    <span class="s4"># Add the table to the document</span>
+    <span class="s1">doc</span><span class="s2">.</span><span class="s1">text</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">table</span><span class="s2">)</span>
+
+    <span class="s1">page_break_paragraph </span><span class="s2">= </span><span class="s1">P</span><span class="s2">(</span><span class="s1">text</span><span class="s2">=</span><span class="s3">&quot;This content will start on a new page.&quot;</span><span class="s2">, </span><span class="s1">stylename</span><span class="s2">=</span><span class="s1">page_break_style</span><span class="s2">)</span>
+    <span class="s1">doc</span><span class="s2">.</span><span class="s1">text</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">page_break_paragraph</span><span class="s2">)</span>
+
+    <span class="s1">paragraph2 </span><span class="s2">= </span><span class="s1">P</span><span class="s2">(</span><span class="s1">text</span><span class="s2">=</span><span class="s3">&quot;&quot;</span><span class="s2">)</span>
+    <span class="s1">doc</span><span class="s2">.</span><span class="s1">text</span><span class="s2">.</span><span class="s1">addElement</span><span class="s2">(</span><span class="s1">paragraph2</span><span class="s2">)</span>
+
+
+
+<span class="s0">for </span><span class="s1">key </span><span class="s0">in </span><span class="s1">range</span><span class="s2">(</span><span class="s5">1</span><span class="s2">, </span><span class="s1">len</span><span class="s2">(</span><span class="s1">spell_dict</span><span class="s2">)):</span>
+    <span class="s1">build_table</span><span class="s2">(</span><span class="s1">key</span><span class="s2">)</span>
+
+<span class="s4"># Save the document</span>
+<span class="s1">doc</span><span class="s2">.</span><span class="s1">save</span><span class="s2">(</span><span class="s3">&quot;test.odt&quot;</span><span class="s2">)</span>
+
+<span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Table saved as test.odt&quot;</span><span class="s2">)</span>
+</pre>
+</body>
+</html>
